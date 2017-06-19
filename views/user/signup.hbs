@@ -1,0 +1,20 @@
+ <div class="row">
+   <div class="col-md-4 col-md-offset-4">
+     <h1>HAI! You're about to sign up</h1>
+     <form action="/user/signup" method="post">
+       <div class="form-group">
+         <label for="email">Your email here</label>
+         <input type="text" id="email" name="email" class="form-control"/>
+       </div>
+       <div class="form-group">
+         <label for="Password">Your Password here</label>
+         <input type="Password" id="Password" name="Password" class="form-control"/>
+       </div>
+       <!--Create hidden form to contain CSRF token for submission, and
+           lets the CSRF package to check for its presence-->
+       <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+       <!--if line above is commented out, upon POST at signup page, an error is returned -->
+       <button type="submit" class="btn btn-primary">Sign me up!</button>
+     </form>
+   </div>
+ </div>
