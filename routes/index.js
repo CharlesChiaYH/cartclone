@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
+//Bringing in CSRF middleware protection//
+var csrf = require('csurf');
+
+var passport = require('passport');
+
 //Bringing in product model from models folder//
 var Product = require('../models/product');
 
-//Bringing in CSRF middleware protection//
-var csrf = require('csurf');
 var csrfProtect = csrf();
 //Protect all routes in express-router with CSRF//
 router.use(csrfProtect);
@@ -33,12 +36,23 @@ router.get('/', function (req, res, next) {
 
 //GET signup page//
 router.get('/user/signup', function(req, res, next){
-  res.render('user/signup', {csrfToken: req.csrfToken()});
+  var messages = req.flash('error'); //stores error message that may occur during this view, passed to render command below//
+  res.render('user/signup', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
 
-//Receive POST from signup page//
-router.post('/user/signup', function(req, res, next){
-  res.redirect('/'); //test that the POST works by redirect to index page//
+//Receive POST from signup page, and passport package uses the //
+//"local.signup" strategy defined in passport.js, and an object//
+//that tells it where to direct to, if on success of failure//
+router.post('/user/signup', passport.authenticate('local.signup', {
+  successRedirect: '/user/profile',
+  failureRedirect: '/user/signup',
+  failureFlash: true
+  //flashes error message on unsuccessful sign-in. Message from passport.js//
+}));
+
+//GET to profile page upon successful sign-up//
+router.get('/user/profile', function(req, res, next){
+  res.render('user/profile');
 });
 
 module.exports = router;

@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
 var mongoose = require('mongoose');
+var passport = require ('passport');
+var flash = require('connect-flash');
 
 //Require express-sessions to allow CSRF to function//
 var session = require('express-session');
@@ -15,6 +17,10 @@ var routes = require('./routes/index');
 var app = express();
 
 mongoose.connect('mongodb://localhost:27017/shopping');
+
+//Setup Passport methods from passport.js. Binding to variable is not required//
+//this is done to avoid dumping all the code from passport.js into app.js//
+require('./config/passport');
 
 
 // view engine setup
@@ -30,6 +36,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 //argument for resave and saveUninitialized set to false, as per documentation recomendation//
 app.use(session({secret: 'secretitem', resave: false, saveUninitialized: false}));
+//Use Flash midleware - Session middleware has to be initialised first//
+app.use(flash());
+app.use(passport.initialize());
+//Use Passport middleware - Session middleware has to be initialised first//
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
