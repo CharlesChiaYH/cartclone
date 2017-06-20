@@ -6,6 +6,8 @@ var User = require('../models/users');
 //Import passport-local strategy object//
 var LocalStrategy = require('passport-local').Strategy;
 
+
+//SIGN UP Strategy//
 //Store User in the session by storing a serilaized ID.//
 passport.serializeUser(function(user, done){
   done(null, user.id);
@@ -65,7 +67,7 @@ passport.use('local.signup', new LocalStrategy({
         return done(null, false, {message: 'This email is already taken'});
       }
       //if no matches in DB during this request, new User is created in DB//
-      //with property fields of "email" and "password". Note the newUser password is//
+      //with property fields of "email" and encrypted "password". Note the newUser password is//
       //the encrypted password created from user.js//
       var newUser = new User();
       newUser.email = email;
@@ -77,5 +79,44 @@ passport.use('local.signup', new LocalStrategy({
         }
         return done (null, newUser);
       });
+    });
+}));
+
+//SIGN-IN strategy//
+//Most of the following code is from SIGN-UP strategy
+passport.use('local.signin', new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password',
+  passReqToCallback: true
+}, function(req, email, password, done){
+    //Sign-in will require validation in case user forgets password or makes a typo//
+    //Here, the validation will be for proper email entry and non-empty password field//
+    req.checkBody('email', 'Invalid email').notEmpty().isEmail();
+    req.checkBody('password', 'Invalid password').notEmpty();
+    var errors = req.validationErrors();
+    if(errors){
+
+      var messages = [];
+      errors.forEach(function(error){
+        messages.push(error.msg);
+      });
+      return done(null, false, req.flash('error', messages));
+    }
+    User.findOne({'email':email}, function(err, user){
+      //on first "if", if an error is found, return an error//
+      if (err){
+        return done(err);
+      }
+      //if User is NOT found, the error message passed by flash message//
+      if (!user){
+        return done(null, false, {message: 'Sorry, no such User'});
+      }
+      //If password is wrong, return error message//
+      if (!user.validPassword(password)){
+        return done(null, false, {message: 'Sorry, wrong password'});
+      }
+      //If no technical erros, user is found, and password is valid,//
+      //return donw and the user, wheere user is from database//
+      return done(null, user);
     });
 }));

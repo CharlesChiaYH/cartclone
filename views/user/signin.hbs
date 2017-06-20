@@ -1,3 +1,29 @@
-/**
- *Plan for sign-in page
- */
+ <div class="row">
+   <div class="col-md-4 col-md-offset-4">
+     <h1>HAI! You're about to sign in</h1>
+     <!--Create error message are that retrieves an error message from passport.js
+          this is facilitated by Flash middleware  -->
+     {{#if hasErrors}}
+      <div class="alert alert-danger">
+        {{# each messages}}
+          <p>{{this}}</p>
+        {{/each}}
+      </div>
+     {{/if}}
+     <form action="/user/signin" method="post">
+       <div class="form-group">
+         <label for="email">Your email here</label>
+         <input type="text" id="email" name="email" class="form-control"/>
+       </div>
+       <div class="form-group">
+         <label for="Password">Your Password here</label>
+         <input type="Password" id="Password" name="password" class="form-control"/>
+       </div>
+       <!--Create hidden form to contain CSRF token for submission, and
+           lets the CSRF package to check for its presence-->
+       <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+       <!--if line above is commented out, upon POST at signup page, an error is returned -->
+       <button type="submit" class="btn btn-primary">Sign me in!</button>
+     </form>
+   </div>
+ </div>

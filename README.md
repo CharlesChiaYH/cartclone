@@ -37,4 +37,5 @@ Preliminaries:
   d)installed express-validator package to ensure valid email entries
     i) Link: https://github.com/ctavan/express-validator
     ii) At project file in terminal: npm install express-validator --save
-  e)created validation for email and password input, and corresponding message output by flash into signup page view (using handlebars placeholder) 
+  e)created validation for email and password input, and corresponding message output by flash into signup page view (using handlebars placeholder)
+  e) created User signing in routes

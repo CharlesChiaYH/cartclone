@@ -34,6 +34,7 @@ router.get('/', function (req, res, next) {
     });
 });
 
+//ROUTES FOR SIGN-UP//
 //GET signup page//
 router.get('/user/signup', function(req, res, next){
   var messages = req.flash('error'); //stores error message that may occur during this view, passed to render command below//
@@ -54,5 +55,21 @@ router.post('/user/signup', passport.authenticate('local.signup', {
 router.get('/user/profile', function(req, res, next){
   res.render('user/profile');
 });
+
+//ROUTES FOR SIGN-IN//
+router.get('/user/signin', function(req, res, next){
+  var messages = req.flash('error'); //stores error message that may occur during this view, passed to render command below//
+  res.render('user/signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
+});
+
+//create POST route for user sign-in - uses local.signin strategy set up in passport.js//
+//Note that on sign-up failure, routed to sing-in page
+router.post('/user/signin', passport.authenticate('local.signin', {
+  successRedirect: '/user/profile',
+  failureRedirect: '/user/signin',
+  failureFlash: true
+
+}));
+
 
 module.exports = router;
