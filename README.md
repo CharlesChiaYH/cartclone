@@ -21,16 +21,20 @@ Preliminaries:
   d) The handlebars styling has "# each" to loop through the referenced product array from "index.js".
   e) User sign in security by using CSRF method.
     i) link: https://github.com/expressjs/csurf
-    ii) install package at terminal: npm install csurf --save
+    ii) installed package at terminal: npm install csurf --save
     iii) CSRF requires express-sessions enabled to function. Link:https://www.npmjs.com/package/express-session
-    iv) install express-sessions at terminal: npm install --save express-session
+    iv) installed express-sessions at terminal: npm install --save express-session
 
 2) Progress updates from 20 June 2017
   a) Create user signup/login functions with Passport package.
-    i) install Passport package at terminal: npm install passport --save
-    ii) install bcrypt package at terminal: npm install bcrypt --save
-    iii)install bcrypt-nodejs package at terminal: npm install bcrypt-node js --save
+    i) installed Passport package at terminal: npm install passport --save
+    ii) installed bcrypt package at terminal: npm install bcrypt --save
+    iii)installed bcrypt-nodejs package at terminal: npm install bcrypt-node js --save
   b) To allow for message pop-ups during each session, recommended solution is to use "Connect Flash" middleware (note: cookieParser and Session middleware must be available)
     i) link: https://www.npmjs.com/package/connect-flash
-    ii)install connect-flash package at terminal: npm install connect-flash --save
-  c)install Local Passport strategy at terinaml: npm install passport-local --save
+    ii)installed connect-flash package at terminal: npm installed connect-flash --save
+  c)installed Local Passport strategy at terinaml: npm install passport-local --save
+  d)installed express-validator package to ensure valid email entries
+    i) Link: https://github.com/ctavan/express-validator
+    ii) At project file in terminal: npm install express-validator --save
+  e)created validation for email and password input, and corresponding message output by flash into signup page view (using handlebars placeholder) 

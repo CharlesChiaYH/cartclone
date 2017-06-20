@@ -8,6 +8,7 @@ var expressHbs = require('express-handlebars');
 var mongoose = require('mongoose');
 var passport = require ('passport');
 var flash = require('connect-flash');
+var validator = require('express-validator');
 
 //Require express-sessions to allow CSRF to function//
 var session = require('express-session');
@@ -34,6 +35,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+//validator parses the body and retrieves the parameters from the request body//
+//hence its position for setup is after cookieParser// 
+app.use(validator());
 //argument for resave and saveUninitialized set to false, as per documentation recomendation//
 app.use(session({secret: 'secretitem', resave: false, saveUninitialized: false}));
 //Use Flash midleware - Session middleware has to be initialised first//

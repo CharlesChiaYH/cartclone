@@ -31,7 +31,28 @@ passport.use('local.signup', new LocalStrategy({
   //The callback function receives this request and checks User DB for ext'g user//
   //
 }, function(req, email, password, done){
+    //since passReqToCallback is true above, the request body is passed to function below//
+    //therefore, Validator can be applied here to check body of the Request for valid entry//
     console.log(email, password);
+    //"checkBody" is a function in Validator. 1st parameter is what is to be checked, 2nd parameter returns response//
+    //when validation fails. Chaining with isEmpty and isEmail are Validator functions//
+    req.checkBody('email', 'Invalid email').notEmpty().isEmail();
+    req.checkBody('password', 'Invalid password').notEmpty().isLength({min:4});
+    //Assign a variable for errors that requests error with validationErrors//
+    //validationErrors is a built-in function in Validator.//
+    var errors = req.validationErrors();
+    if(errors){
+      //if there are errors, a variable assigned to an array will store the error messages//
+      //the forEach function will loop through and push each error message into message array//
+      //"error.msg" is a Validator package syntax that refers the property containing only the message//
+      var messages = [];
+      errors.forEach(function(error){
+        messages.push(error.msg);
+      });
+      return done(null, false, req.flash('error', messages));
+      //Above: return null because no tech error, false becasue not success//
+      //and req.flash the error messages from checkBody into "messages" handlebar in views//
+    }
     User.findOne({'email':email}, function(err, user){
       //on first "if", if an error is found, return an error//
       if (err){
