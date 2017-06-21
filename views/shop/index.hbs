@@ -1,3 +1,5 @@
+<!-- "/addtocart" has handlebars becuse it need to pass "this" items ID backto index.js-->
+
 {{# each products }}
     <div class="row">
         {{# each this }}
@@ -9,7 +11,7 @@
                         <p class="description">{{this.description}}</p>
                         <div class="clearfix">
                             <div class="price pull-left">{{this.price}}</div>
-                            <a href="#" class="btn btn-success pull-right" role="button">Add to Shopping Cart</a>
+                            <a href="/addtocart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Shopping Cart</a>
                         </div>
                     </div>
                 </div>

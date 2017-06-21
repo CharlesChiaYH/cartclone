@@ -11,14 +11,13 @@ var products = [
         title: 'Gothic video game',
         description: ' good!!!',
         price: 10
-
     }),
+
     new Product({
         imagePath: "https://vignette4.wikia.nocookie.net/fallout/images/6/68/Fallout_4_logo.png/revision/latest?cb=20150620134522",
         title: 'Fallout 4',
         description: ' better than good!!!',
         price: 20
-
     }),
 
     new Product({
@@ -26,7 +25,6 @@ var products = [
         title: 'Star Wars Battlefront',
         description: ' Awsesome!!!',
         price: 45
-
     }),
 
     new Product({
@@ -34,7 +32,6 @@ var products = [
         title: 'Wining Eleven',
         description: ' Only for the soccer enthusiasts',
         price: 10
-
     }),
 
     new Product({
@@ -42,12 +39,25 @@ var products = [
         title: 'Call of Duty: Black Ops',
         description: ' Absolut shooty!!!',
         price: 35
+    }),
 
+    new Product({
+        imagePath: "https://upload.wikimedia.org/wikipedia/en/4/41/Deadpool_video_game_cover.png",
+        title: 'Deadpool for Xbox360',
+        description: ' Deadpool approves. So should you!!!',
+        price: 50
+    }),
+
+    new Product({
+        imagePath: "https://d1r7xvmnymv7kg.cloudfront.net/sites_products/darksouls3/assets/img/DARKSOUL_facebook_mini.jpg",
+        title: 'Darksouls',
+        description: ' Death, Despondence, and Desperation. Kinda like programming as a noob',
+        price: 20
     })
 
 ];
 
-/*var done = 0;
+var done = 0;
 for (var i = 0; i < products.length; i++) {
     products[i].save(function (err, result) {
         done++;
@@ -59,4 +69,4 @@ for (var i = 0; i < products.length; i++) {
 
 function exit() {
     mongoose.disconnect();
-}*/
+}

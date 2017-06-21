@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+//Bringing in cart model (cart.js) to allow working with cart codes below//
+var Cart = require('../models/cart');
 
 //Bringing in product model from models folder//
 var Product = require('../models/product');
@@ -24,5 +26,47 @@ router.get('/', function (req, res, next) {
         res.render('shop/index', {title: 'Shopping Cart', products: productPortion});
     });
 });
+
+//Setup route for adding items to cart: href="addtocart" in handlebars (index.hbs)//
+//a product ID is to be expected - this will be pushed into ext'g session//
+//Also, this product will be pushed into a "cart" object//
+router.get('/addtocart/:id', function(req, res, next){
+  var productId = req.params.id;
+  //with reference to cart.js, on new instance of cart, check session for ext'g cart//
+  //if no cart is found, then an empty object is assigned to items//
+  //if there is an ext'g cart in the session, then remain as ext'g cart//
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+  //Use mongooses to find product by ID//
+  Product.findById(productId, function(err, product){
+    if (err){
+      return res.redirect('/');
+    }
+    cart.add(product, product.id); //if no errors found from line above, the product found is added to new instance of cart//
+    req.session.cart = cart; //store the new cart as a property in th current session//
+    console.log(req.session.cart);//test print current cart//
+    res.redirect('/'); //redirects to index page//
+  });
+});
+
+//Setup route for Shopping Cart view (shoppingCart.hbs)//
+router.get('/shoppingCart', function(req, res, next){
+  if (!req.session.cart){
+    return res.render('shop/shoppingCart', {products:null});
+  }
+    var cart = new Cart(req.session.cart);
+    res.render('shop/shoppingCart', {products:cart.generateArray(), totalCost: cart.totalCost});
+});
+
+//Setup route for Checkout view (checkout.hbs)//
+router.get('/checkout', function(req, res, next){
+  if (!req.session.cart){
+    return res.redirect('/shoppingCart');
+    //if there are no items in cart, a request for checkout will redirect to shopping cart index page//
+  }
+  var cart = new Cart(req.session.cart);
+  res.render('shop/checkout', {total: cart.totalCost});
+  //if there are items in the cart, render the checkout page, with "total" in the handlebars of checkout hbs populated with totalCost//
+});
+
 
 module.exports = router;

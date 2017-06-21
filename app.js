@@ -9,12 +9,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
 var mongoose = require('mongoose');
+//Require express-sessions to allow CSRF to function//
+var session = require('express-session');
 var passport = require ('passport');
 var flash = require('connect-flash');
 var validator = require('express-validator');
 
-//Require express-sessions to allow CSRF to function//
-var session = require('express-session');
+//set MongoStore for 'connect-mongo' middleware package//
+//'connect-mongo' is set up after sessions, and sessions//
+//is passed as an argument to it//
+var MongoStore = require('connect-mongo')(session);
 
 //Set the routing//
 var routes = require('./routes/index');
@@ -43,8 +47,18 @@ app.use(cookieParser());
 //validator parses the body and retrieves the parameters from the request body//
 //hence its position for setup is after cookieParser//
 app.use(validator());
-//argument for resave and saveUninitialized set to false, as per documentation recomendation//
-app.use(session({secret: 'secretitem', resave: false, saveUninitialized: false}));
+
+//'Connect-mongo' is uses here after requiring it (above), and incorporated to each initialised session//
+//MongoStore takes in an object that configures the mongoose connection key to the current connection//
+//Cookie determines session length with maxAge key - in milliseconds (180 = minutes)//
+//Arguments for resave and saveUninitialized set to false, as per documentation recomendation//
+app.use(session({
+  secret: 'secretitem',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  cookie: { maxAge: 180*60*1000 }
+}));
 //Use Flash midleware - Session middleware has to be initialised first//
 app.use(flash());
 app.use(passport.initialize());
@@ -56,6 +70,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //".locals" object is global variable available to all views//
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated();
+  res.locals.session = req.session;
   next();
 });
 

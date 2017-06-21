@@ -1,0 +1,40 @@
+<!--Static element for shopping cart page -->
+
+<!--"if" there are shopping cart items i.e. non-empty shopping cart-->
+<!--display fields with item and prices -->
+{{# if products}}
+<div class="row">
+  <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+    <ul class="list-group">
+      {{# each products}}<!--for non-empty cart, loop through each item and display -->
+      <li class="list-group-item">
+        <span class="badge">{{this.qty}}</span>
+        <strong>{{this.item.title}}</strong>
+        <span class="label label-success">{{this.price}}</span>
+        <div class="btn-group">
+          <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">Do you want to:<span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Reduce quantity by 1?</a></li>
+            <li><a href="#">Remove all items?</a></li>
+          </ul>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+<hr /> <!--this will render a horizontal line -->
+<div class="row">
+  <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+      <strong>Total Price:${{totalCost}}</strong>
+      <a href="/checkout" type="button" class="btn btn-success">Checkout</a>
+  </div>
+</div>
+{{ else }}
+<!--"else" if no items in cart, state that "no items in cart"-->
+<div class="row">
+  <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+      <h2>No items in cart yet</h2>
+  </div>
+</div>
+{{/if}}
