@@ -1,3 +1,6 @@
+//app.js is the "entry point" of the application that listens for request to routes//
+
+//Import/requrie middleware//
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -13,7 +16,9 @@ var validator = require('express-validator');
 //Require express-sessions to allow CSRF to function//
 var session = require('express-session');
 
+//Set the routing//
 var routes = require('./routes/index');
+var userRoutes = require('./routes/user');
 
 var app = express();
 
@@ -36,7 +41,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 //validator parses the body and retrieves the parameters from the request body//
-//hence its position for setup is after cookieParser// 
+//hence its position for setup is after cookieParser//
 app.use(validator());
 //argument for resave and saveUninitialized set to false, as per documentation recomendation//
 app.use(session({secret: 'secretitem', resave: false, saveUninitialized: false}));
@@ -47,6 +52,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Create an exotess middlware function that executes on all requests//
+//".locals" object is global variable available to all views//
+app.use(function(req, res, next){
+  res.locals.login = req.isAuthenticated();
+  next();
+});
+
+//"Use" the paths after setting it above. This will listen for requests to these routes//
+app.use('/user', userRoutes);
 app.use('/', routes);
 
 // catch 404 and forward to error handler

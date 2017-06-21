@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div class="navbar-brand">BAI!</div>
+            <a class="navbar-brand" href="/">BAI!</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,9 +18,14 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> User Management <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">User Account</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Logout</a></li>
+                        {{# if login}}<!--reference app.js for "login" global variable -->
+                          <li><a href="/user/profile">User Account</a></li>   <!--if login is true, handlebars will allow for dropdown list to appear -->
+                          <li role="separator" class="divider"></li>
+                          <li><a href="/user/logout">Logout</a></li>
+                        {{else}} <!--"if login" id false, the dropdown list displayed by handlebars will display other information -->
+                          <li><a href="/user/signup">Sign Up</a></li>
+                          <li><a href="/user/signin">Sign In</a></li>
+                        {{/if}}
                     </ul>
                 </li>
             </ul>

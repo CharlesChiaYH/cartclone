@@ -15,7 +15,15 @@
   font-weight: bold;
 }
 
+.navbar-default{
+  height: 90px;
+  background-color: rgba(43, 157, 238, 1);
+  padding-top: 20px;
+}
+
 .navbar-brand{
-  font-family: "Raleway";
+  font-family: "sans serif";
+  font-size: 50px;
   font-weight: bold;
+  color: black
 }

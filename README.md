@@ -39,3 +39,8 @@ Preliminaries:
     ii) At project file in terminal: npm install express-validator --save
   e)created validation for email and password input, and corresponding message output by flash into signup page view (using handlebars placeholder)
   e) created User signing in routes
+  d) Split routing into two files: index.js and user.js. This is to delineates routing for users versus the index, and eliminate mulitple usage of "user" typed out on the code.
+
+  3) Progress updates from 21 June 2017
+    a) Enabled control for user.js such that sign-up/sign-in depends on state of "isLoggedIn".
+    b) Enable functioing of dropdown list in handlebars
