@@ -3,7 +3,7 @@
 var passport = require('passport');
 var User = require('../models/users');
 
-//Import passport-local strategy object//
+//Import passport-local "Strategy" object//
 var LocalStrategy = require('passport-local').Strategy;
 
 
@@ -69,6 +69,7 @@ passport.use('local.signup', new LocalStrategy({
       //if no matches in DB during this request, new User is created in DB//
       //with property fields of "email" and encrypted "password". Note the newUser password is//
       //the encrypted password created from user.js//
+      //var newUser uses the "User" model exported from mongoose.model in "user.js"//
       var newUser = new User();
       newUser.email = email;
       newUser.password = newUser.encryptPassword(password);

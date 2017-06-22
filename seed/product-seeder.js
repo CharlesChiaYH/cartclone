@@ -9,21 +9,21 @@ var products = [
     new Product({
         imagePath: "https://upload.wikimedia.org/wikipedia/en/5/5e/Gothiccover.png",
         title: 'Gothic video game',
-        description: ' good!!!',
+        description: 'Oldie but goodie',
         price: 10
     }),
 
     new Product({
         imagePath: "https://vignette4.wikia.nocookie.net/fallout/images/6/68/Fallout_4_logo.png/revision/latest?cb=20150620134522",
         title: 'Fallout 4',
-        description: ' better than good!!!',
+        description: ' Sandbox and Super Mutants',
         price: 20
     }),
 
     new Product({
         imagePath: "https://media.starwars.ea.com/content/starwars-ea-com/en_US/starwars/battlefront/news-articles/future-of-battlefront-2017/_jcr_content/featuredImage/renditions/rendition1.img.jpg",
         title: 'Star Wars Battlefront',
-        description: ' Awsesome!!!',
+        description: 'Use the Force!',
         price: 45
     }),
 
@@ -44,7 +44,7 @@ var products = [
     new Product({
         imagePath: "https://upload.wikimedia.org/wikipedia/en/4/41/Deadpool_video_game_cover.png",
         title: 'Deadpool for Xbox360',
-        description: ' Deadpool approves. So should you!!!',
+        description: ' Deadpool approves. So should you.',
         price: 50
     }),
 

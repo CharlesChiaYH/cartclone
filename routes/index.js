@@ -43,7 +43,7 @@ router.get('/addtocart/:id', function(req, res, next){
     }
     cart.add(product, product.id); //if no errors found from line above, the product found is added to new instance of cart//
     req.session.cart = cart; //store the new cart as a property in th current session//
-    console.log(req.session.cart);//test print current cart//
+    //console.log(req.session.cart); test print current cart//
     res.redirect('/'); //redirects to index page//
   });
 });
@@ -66,6 +66,12 @@ router.get('/checkout', function(req, res, next){
   var cart = new Cart(req.session.cart);
   res.render('shop/checkout', {total: cart.totalCost});
   //if there are items in the cart, render the checkout page, with "total" in the handlebars of checkout hbs populated with totalCost//
+});
+
+
+//Setup route for Under Construction view (underConstruction.hbs)//
+router.get('/underConstruction', function(req, res, next){
+  res.render('shop/underConstruction');
 });
 
 

@@ -27,14 +27,14 @@
 <div class="row">
   <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
       <strong>Total Price:${{totalCost}}</strong>
-      <a href="/checkout" type="button" class="btn btn-success">Checkout</a>
+      <a href="/checkout" type="button" class="btn btn-success">Confirm!</a>
   </div>
 </div>
 {{ else }}
 <!--"else" if no items in cart, state that "no items in cart"-->
 <div class="row">
   <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-      <h2>No items in cart yet</h2>
+      <h2><strong>There are no items selected yet</strong></h2>
   </div>
 </div>
 {{/if}}

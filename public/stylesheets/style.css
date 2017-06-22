@@ -2,9 +2,14 @@
     max-height: 150px;
 }
 
-.thumbnail .description {
-    color: #7f7f7f;
+#picture{
+  height: 300px;
+  width: 300px;
 }
+
+.thumbnail .description {
+    color: black;
+  }
 
 .price {
     font-weight: bold;
@@ -25,5 +30,6 @@
   font-family: "sans serif";
   font-size: 50px;
   font-weight: bold;
-  color: black
+  color: black;
+  font-style: italic;
 }

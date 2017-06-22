@@ -52,3 +52,7 @@ Preliminaries:
   d)Setup cart routes with refernce to index.js and index.hbs to receive incoming user selection of items to generate costs.
   e) Setup shopping cart view and routes to feedback on items selected, quantity, and cost.  
   e)Setup a checkout page view with basic bootstrap elements in preparation for 3rd party API payment (Stripe).
+
+4) Progress updates from 22 June 2017
+  a) added "Under Construction" pagess for future working.
+  b) added simple styling.

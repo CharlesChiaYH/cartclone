@@ -1,6 +1,9 @@
 //User Schema for signing-up//
+
+//Import Mongoose and crate user schema//
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
 //Bring in brcypt-nodejs package for user encryption//
 var bcrypt = require('bcrypt-nodejs');
 
