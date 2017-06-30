@@ -33,15 +33,3 @@
   color: black;
   font-style: italic;
 }
-
-.itemName{
-  font-size: 25px;
-}
-
-.totalPrice{
-  font-size: 25px;
-}
-
-.intro, p, ul{
-  font-size: 20px;
-}

@@ -68,7 +68,7 @@ app.use(flash());
 app.use(passport.initialize());
 //Use Passport middleware - Session middleware has to be initialised first//
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Create an exotess middlware function that executes on all requests//
 //".locals" object is global variable available to all views//
