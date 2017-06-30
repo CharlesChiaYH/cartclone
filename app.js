@@ -14,6 +14,10 @@ var session = require('express-session');
 var passport = require ('passport');
 var flash = require('connect-flash');
 var validator = require('express-validator');
+var dotenv = require('dotenv');
+//import dotenv from 'dotenv';//
+dotenv.load({path: '.env'});
+
 
 //set MongoStore for 'connect-mongo' middleware package//
 //'connect-mongo' is set up after sessions, and sessions//
@@ -26,7 +30,7 @@ var userRoutes = require('./routes/user');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/shopping');
+mongoose.connect(process.env.MONGODB_URI);
 
 //Setup Passport methods from passport.js. Binding to variable is not required//
 //this is done to avoid dumping all the code from passport.js into app.js//
@@ -109,5 +113,5 @@ app.use(function (err, req, res, next) {
     });
 });
 
-
+//require('./seed/product-seeder.js');
 module.exports = app;
